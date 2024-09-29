@@ -1,0 +1,118 @@
+let playerHealth = 100;
+let enemyHealth = 100;
+let timer = null;
+let gameTimer = 60;
+let countdown = null;
+
+function updateHealthBars() {
+    document.getElementById("playerHealthBar").style.height = playerHealth + "%";
+    document.getElementById("enemyHealthBar").style.height = enemyHealth + "%";
+}
+
+//Reset after each game.
+function resetGame() {
+    playerHealth = 100;
+    enemyHealth = 100;
+    updateHealthBars();
+    document.getElementById("result").innerText = "";
+    clearTimeout(timer);
+    clearInterval(countdown);
+    gameTimer = 60;
+    document.getElementById("timer").innerText = `Time Left: 60s`;
+    startGame();
+}
+
+//Game timer starts.
+function startGame() {
+    startTimer();
+    countdown = setInterval(() => {
+        gameTimer--;
+        document.getElementById("timer").innerText = `Time Left: ${gameTimer}s`;
+        if (gameTimer === 0) {
+            clearInterval(countdown);
+            checkWinner();
+        }
+    }, 1000);
+}
+
+//Start a timer for bait. If neither button is pressed, bait is selected instead.
+function startTimer() {
+    timer = setTimeout(() => {
+        playerChoice = "bait";
+        determineOutcome(playerChoice, getRandomAIChoice());
+    }, 3000);
+}
+
+//Get a random choice for the enemy
+function getRandomAIChoice() {
+    const choices = ["throw", "strike", "bait"];
+    return choices[Math.floor(Math.random() * choices.length)];
+}
+
+// Determine outcome based on player and AI choices
+function determineOutcome(player, enemy) {
+    let result = "";
+
+    if (player === ai) {
+        result = "It's a draw!";
+    } else if (
+        (player === "throw" && (enemy === "throw" || enemy === "bait")) ||
+        (player === "strike" && (enemy === "strike" || enemy === "bait")) ||
+        (player === "bait" && (enemy === "strike" || enemy === "throw"))
+    ) {
+        enemyHealth -= 20;
+        result = "You hit the enemy!";
+    } else {
+        playerHealth -= 20;
+        result = "You got hit!";
+    }
+
+    updateHealthBars();
+    document.getElementById("result").innerText = result;
+
+    if (playerHealth <= 0 || enemyHealth <= 0) {
+        checkWinner();
+    } else {
+        setTimeout(resetRound, 2000);
+    }
+}
+
+//Reset round logic, don't reset health though.
+function resetRound() {
+    playerChoice = null;
+    document.getElementById("result").innerText = "";
+    clearTimeout(timer);
+    startTimer();
+}
+
+//Check who wins at the end of the timer or if health hits 0
+function checkWinner() {
+    let result = "";
+    if (playerHealth > enemyHealth) {
+        result = "You win!";
+    } else if (enemyHealth > playerHealth) {
+        result = "You lose.";
+    } else {
+        result = "DRAW!";
+    }
+
+    document.getElementById("result").innerText = result;
+    //Game resets after 4 seconds so you can play again.
+    setTimeout(resetGame, 4000);
+}
+
+//Event listeners for buttons
+document.getElementById("throwButton").addEventListener("click", () => {
+    playerChoice = "throw";
+    clearTimeout(timer); //Stop bait timer because player picked throw.
+    determineOutcome(playerChoice, getRandomAIChoice());
+});
+
+document.getElementById("strikeButton").addEventListener("click", () => {
+    playerChoice = "strike";
+    clearTimeout(timer); //Stop bait timer because player picked strike.
+    determineOutcome(playerChoice, getRandomAIChoice());
+});
+
+//Start the game with the first round
+resetGame();
