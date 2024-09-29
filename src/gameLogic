@@ -45,14 +45,55 @@ function startTimer() {
 
 //Get a random choice for the enemy
 function getRandomAIChoice() {
-    const choices = ["throw", "strike", "bait"];
-    return choices[Math.floor(Math.random() * choices.length)];
+    //const choices = ["throw", "strike", "bait"];
+    //choices[Math.floor(Math.random() * choices.length)]; -> commented out for posterity
+
+    //weighted choice
+    chance = Math.floor(Math.random() * 101) + 1;
+    
+    if (chance <= 10) {
+        //10% chance to reversal
+        return "reversal";
+    }
+    else if (chance <= 50) {
+        //40% chance to throw
+        return "throw";
+    }
+    else {
+        //50% chance to block
+        return "block";
+    }
 }
 
 // Determine outcome based on player and AI choices
 function determineOutcome(player, enemy) {
     let result = "";
 
+    if (
+        (player === "strike" && enemy === "block") ||
+        (player === "throw" && enemy === "throw") ||
+        (player === "bait" && enemy === "block")
+    ) {
+        //it ties
+        result = "DRAW";
+    } else if (
+        (enemy === "reversal" && (Player === "strike" || player === "throw")) ||
+        (player === "block" && enemy === "throw")
+    ) {
+        //player loses
+        playerHealth -= 20;
+        result = "REVERSAL";
+    } else if (player === "bait" && enemy === "reversal") {
+        //player wins v. reversal
+        enemyHealth -= 40;
+        result = "PUNISH COUNTER";
+    } else {
+        //player wins strike/throw
+        enemyHealth -= 20;
+        result = "COUNTER"
+    }
+
+    /**
     if (player === ai) {
         result = "It's a draw!";
     } else if (
@@ -66,6 +107,7 @@ function determineOutcome(player, enemy) {
         playerHealth -= 20;
         result = "You got hit!";
     }
+     -> commented out for posterity */
 
     updateHealthBars();
     document.getElementById("result").innerText = result;
