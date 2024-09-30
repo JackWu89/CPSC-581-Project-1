@@ -19,6 +19,7 @@ function resetGame() {
     clearInterval(countdown);
     gameTimer = 60;
     document.getElementById("timer").innerText = `Time Left: 60s`;
+    updateImage("neutral");
     startGame();
 }
 
@@ -71,11 +72,24 @@ function determineOutcome(player, enemy) {
 
     if (
         (player === "strike" && enemy === "block") ||
-        (player === "throw" && enemy === "throw") ||
-        (player === "bait" && enemy === "block")
+        (player === "bait" && enemy === "block") ||
+        (player === "throw" && enemy === "throw")
     ) {
         //it ties
         result = "DRAW";
+
+        //update image accordingly
+        if (player === "strike" && enemy === "block") {
+            //ai blocks,
+            updateImage("block");
+        } else if (player === "throw" && enemy === "throw") {
+            //ai throw escapes
+            updateImage("throw-escape");
+        } else {
+            //ai blocks, player baits
+            updateImage("nothing");
+
+        }
     } else if (
         (enemy === "reversal" && (Player === "strike" || player === "throw")) ||
         (player === "block" && enemy === "throw")
@@ -83,14 +97,38 @@ function determineOutcome(player, enemy) {
         //player loses
         playerHealth -= 20;
         result = "REVERSAL";
+
+        //update images accordingly
+        if (enemy === "reversal") {
+            //ai successfully reversals
+            updateImage(reversal);
+        }
+        else {
+            //ai throws player
+            updateImage("counter-throw");
+        }
     } else if (player === "bait" && enemy === "reversal") {
         //player wins v. reversal
         enemyHealth -= 40;
         result = "PUNISH COUNTER";
+
+        //update image
+        updateImage("bait");
     } else {
         //player wins strike/throw
         enemyHealth -= 20;
         result = "COUNTER"
+
+        //update image accordingly
+        if (player === "strike" && enemy === "throw") {
+            //player strikes ai
+            updateImage("strike");
+        }
+        else {
+            //player throws ai
+            updateImage("throw");
+        }
+        
     }
 
     /**
@@ -123,6 +161,7 @@ function determineOutcome(player, enemy) {
 function resetRound() {
     playerChoice = null;
     document.getElementById("result").innerText = "";
+    updateImage("knockdown")
     clearTimeout(timer);
     startTimer();
 }
@@ -141,6 +180,43 @@ function checkWinner() {
     document.getElementById("result").innerText = result;
     //Game resets after 4 seconds so you can play again.
     setTimeout(resetGame, 4000);
+}
+
+//change image depending on game-state
+function updateImage(state) {
+    const image = document.getElementById('game-play');
+
+    if (state === "throw") {
+        //ai gets thrown
+        image.src = './src/bait-block';
+    } else if (state === "strike") {
+        //ai gets hit by strike
+        image.src = './src/Strike.png';
+    } else if (state === "bait") {
+        //ai reversals into bait
+        image.src = './src/reversal - block.png';
+    } else if (state === "block") {
+        //ai blocks the strike
+        image.src = './src/strike - block.png';
+    } else if (state === "nothing") {
+        //ai blocks into bait
+        image.src = './src/bait - block.png';
+    } else if (state === "throw-escape") {
+        //ai counter throws and escapes
+        image.src = './src/throw - escape.png';
+    } else if (state === "counter-throw") {
+        //ai throws player
+        image.src = './src/throw - bait.png';
+    } else if (state === "reversal") {
+        //ai reversals player
+        image.src = './src/Reversal.png';
+    } else if (state ==="knockdown") {
+        //reset game to player decision
+        image.src = './src/Knockdown.png';
+    } else {
+        //reset game state to start screen
+        image.src = './src/neutral.png';
+    }
 }
 
 //Event listeners for buttons
