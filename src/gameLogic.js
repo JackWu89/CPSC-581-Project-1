@@ -91,7 +91,7 @@ function determineOutcome(player, enemy) {
 
         }
     } else if (
-        (enemy === "reversal" && (Player === "strike" || player === "throw")) ||
+        (enemy === "reversal" && (player === "strike" || player === "throw")) ||
         (player === "block" && enemy === "throw")
     ) {
         //player loses
@@ -101,7 +101,7 @@ function determineOutcome(player, enemy) {
         //update images accordingly
         if (enemy === "reversal") {
             //ai successfully reversals
-            updateImage(reversal);
+            updateImage("reversal");
         }
         else {
             //ai throws player
@@ -184,38 +184,38 @@ function checkWinner() {
 
 //change image depending on game-state
 function updateImage(state) {
-    const image = document.getElementById('game-play');
+    const image = document.getElementById('screenImage');
 
     if (state === "throw") {
         //ai gets thrown
-        image.src = './src/bait-block';
+        image.src = './states/throw.png';
     } else if (state === "strike") {
         //ai gets hit by strike
-        image.src = './src/Strike.png';
+        image.src = './states/Strike.png';
     } else if (state === "bait") {
         //ai reversals into bait
-        image.src = './src/reversal - block.png';
+        image.src = './states/reversal - block.png';
     } else if (state === "block") {
         //ai blocks the strike
-        image.src = './src/strike - block.png';
+        image.src = './states/strike - block.png';
     } else if (state === "nothing") {
         //ai blocks into bait
-        image.src = './src/bait - block.png';
+        image.src = './states/bait - block.png';
     } else if (state === "throw-escape") {
         //ai counter throws and escapes
-        image.src = './src/throw - escape.png';
+        image.src = './states/throw - escape.png';
     } else if (state === "counter-throw") {
         //ai throws player
-        image.src = './src/throw - bait.png';
+        image.src = './states/throw - bait.png';
     } else if (state === "reversal") {
         //ai reversals player
-        image.src = './src/Reversal.png';
+        image.src = './states/Reversal.png';
     } else if (state ==="knockdown") {
         //reset game to player decision
-        image.src = './src/Knockdown.png';
+        image.src = './states/Knockdown.png';
     } else {
         //reset game state to start screen
-        image.src = './src/neutral.png';
+        image.src = './states/neutral.png';
     }
 }
 
