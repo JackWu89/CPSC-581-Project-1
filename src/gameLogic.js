@@ -92,7 +92,7 @@ function determineOutcome(player, enemy) {
         }
     } else if (
         (enemy === "reversal" && (player === "strike" || player === "throw")) ||
-        (player === "block" && enemy === "throw")
+        (player === "bait" && enemy === "throw")
     ) {
         //player loses
         playerHealth -= 20;
