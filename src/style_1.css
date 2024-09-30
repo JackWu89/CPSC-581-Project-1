@@ -1,69 +1,82 @@
-.button-container {
-    display: flex;
-    gap: 20px; 
-    margin-top: 100px;
-    margin-left: 170px;
-}
-
+/* General page settings */
 body {
-    display: flex;
-    justify-content: center;  
-    align-items: center;      
-    height: 100vh;            
-    margin: 0; 
-    background-image: url("background1.jpg");
+    background-image: url("backgroundImage.png");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;              
+    background-repeat: no-repeat;
 }
 
-button {
-    padding: 20px 60px;
-    font-size: 50px;
-    cursor: pointer;
-    border-radius: 20px;
-}
-
-header {
+/* Container for the game elements */
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
 }
 
-
-/* Health container for both health bars */
-.health-container {
-    display: flex;
-    justify-content: space-between;
-    /* Adjust width to fit the screen */
-    width: 60%;  
-    margin: 20px 0;
-    position: relative;
+#screenImage {
+    position: absolute;
+    top: 13.57%;
+    width: 57.4%;
+    height: 65%;
+    z-index: 0;
 }
 
-/* Health bar style */
-.health-bar {
-    width: 40px;
-    height: 100px; 
-    /* Starting at 100px for full health */
-    background-color: green;
-    border: 2px solid #000;
-}
-
-/* Timer style */
+/* Timer at the top center */
 #timer {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
     font-size: 40px;
-    color: yellow;
-    text-align: center;
-    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-/* Result display */
+/* Health bars container */
+.health-container {
+    position: absolute;
+    top: 161px; 
+    width: 45%;
+    display: flex;
+    justify-content: space-between; 
+}
+
+/* Individual health bars */
+.health-bar {
+    width: 120px;
+    height: 20px;
+    background-color: green;
+    border: 2px solid black;
+}
+
+/* Buttons container at the bottom */
+.button-container {
+    position: absolute;
+    bottom: 100px; 
+    left: 50%;
+    display: flex;
+    gap: 30px; 
+}
+
+/* Style for buttons */
+button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: yellow;
+    border: 2px solid red;
+    cursor: pointer;
+}
+
 #result {
+    position: absolute;
     font-size: 50px;
     color: black;
     text-align: center;
     margin-top: 20px;
 }
+

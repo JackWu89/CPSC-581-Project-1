@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html>
-	<head>
-    	<title>2ButtonFightingGame.com</title>
-    	<link rel="stylesheet" href="style.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Game</title>
+    <link rel="stylesheet" href="style_1.css">
+</head>
+<body>
 
-	</head>
+    <!-- Health bars, Timer, and buttons -->
+    <div class="game-container">
+				<img id="screenImage" src="states/neutral.png">
 
-	<body>
-		<div class="header">
-			<!-- Timer for the game -->
-			<div id="timer">Time Left: 60s</div>
+        <!-- Timer in the center -->
+        <div id="timer">Time Left: 60s</div>
 
-			<!-- Health bars for player (left) and enemy (right) -->
-			<div class="health-container">
-				<div class="health-bar" id="playerHealthBar"></div>
-				<div class="health-bar" id="enemyHealthBar"></div>
-			</div>
+        <!-- Health bars: Player (left) and Enemy (right) -->
+        <div class="health-container">
+            <div class="health-bar" id="playerHealthBar"></div>
+            <div class="health-bar" id="enemyHealthBar"></div>
+        </div>
 
-			<!-- Throw and Strike buttons -->
-			<div class="button-container">
-				<button id="throwButton">Throw</button>
-				<button id="strikeButton">Strike</button>
-			</div>
-
-			<!-- Display for the result of each round -->
-			<div id="result"></div>
-
-			<!-- Background music. Just keeps looping if the game goes longer then 1min 8sec -->
-			<audio id="backgroundMusic" loop>
-				<source src="CPSC581.mp3" type="audio/mpeg">
-			</audio>
-		</div>
-
-		<!-- Game logic -->
+        <!-- Buttons aligned with the arcade stick -->
+        <div class="button-container">
+            <button id="throwButton">Throw</button>
+            <button id="strikeButton">Strike</button>
+        </div>
+				<div id="result"></div>
+				<audio id="backgroundMusic" loop>
+					<source src="CPSC581.mp3" type="audio/mpeg">
+				</audio>
+    </div>
 		<script src="gameLogic.js"></script>
-	</body>
+</body>
 </html>
