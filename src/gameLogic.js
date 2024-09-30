@@ -4,6 +4,12 @@ let timer = null;
 let gameTimer = 60;
 let countdown = null;
 
+function playMusic(audio) {
+    if (!audio.paused) {
+        audio.play();
+    }
+}
+
 function updateHealthBars() {
     document.getElementById("playerHealthBar").style.height = playerHealth + "%";
     document.getElementById("enemyHealthBar").style.height = enemyHealth + "%";
@@ -221,12 +227,20 @@ function updateImage(state) {
 
 //Event listeners for buttons
 document.getElementById("throwButton").addEventListener("click", () => {
+    var audio = document.getElementById("backgroundMusic");
+    if (audio.paused) {
+        audio.play();
+    }
     playerChoice = "throw";
     clearTimeout(timer); //Stop bait timer because player picked throw.
     determineOutcome(playerChoice, getRandomAIChoice());
 });
 
 document.getElementById("strikeButton").addEventListener("click", () => {
+    var audio = document.getElementById("backgroundMusic");
+    if (audio.paused) {
+        audio.play();
+    }
     playerChoice = "strike";
     clearTimeout(timer); //Stop bait timer because player picked strike.
     determineOutcome(playerChoice, getRandomAIChoice());
