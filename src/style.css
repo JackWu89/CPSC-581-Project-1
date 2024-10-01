@@ -5,7 +5,7 @@
     margin-left: 170px;
 }
 
-body {
+.game-container {
     display: flex;
     justify-content: center;  
     align-items: center;      
@@ -14,7 +14,9 @@ body {
     background-image: url("backgroundImage.png");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;              
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1;       
 }
 
 button {
@@ -74,4 +76,9 @@ header {
     color: black;
     text-align: center;
     margin-top: 20px;
+}
+
+#screenImage {
+    position: absolute;
+    z-index: -1;
 }
