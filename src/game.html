@@ -9,7 +9,7 @@
 <body>
     <!-- Health bars, Timer, and buttons -->
     <div class="game-container">
-        <img id="cabinetImage" src="backgroundImage.png">
+        <img id="cabinetImage" src="background.png">
         <img id="screenImage" src="states/neutral.png">
         <!-- Timer in the center -->
         <div id="timer">Time Left: 60s</div>
@@ -20,15 +20,17 @@
             <div class="health-bar" id="enemyHealthBar"></div>
         </div>
 
-        <!-- Buttons aligned with the arcade stick -->
-        <div class="button-container">
-            <button id="throwButton">Throw</button>
-            <button id="strikeButton">Strike</button>
-        </div>
-				<div id="result"></div>
-				<audio id="backgroundMusic" loop>
-					<source src="CPSC581.mp3" type="audio/mpeg">
-				</audio>
+        <!-- Buttons aligned with the buttons in bg -->
+        <button id="throwButton">Throw</button>
+        <p id="throwLabel">THROW</p>
+        <button id="strikeButton">Strike</button>
+        <p id="strikeLabel">STRIKE</p>
+
+
+        <div id="result"></div>
+        <audio id="backgroundMusic" loop>
+            <source src="CPSC581.mp3" type="audio/mpeg">
+        </audio>
     </div>
     
 		<script src="gameLogic.js"></script>

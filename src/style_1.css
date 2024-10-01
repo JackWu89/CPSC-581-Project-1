@@ -89,3 +89,41 @@ button {
     text-align: center;
     margin-top: 20px;
 }
+
+#throwButton {
+    border-radius: 50%;
+    background: transparent;
+    font-size: 0;
+    position: absolute;
+    top: 33%;
+    left: 4.8%;
+    height: 200px;
+    width: 200px;
+    border: transparent;
+}
+
+#strikeButton {
+    border-radius: 50%;
+    background: transparent;
+    font-size: 0;
+    position: absolute;
+    top: 33%;
+    right: 6.5%;
+    height: 200px;
+    width: 200px;
+    border: transparent;
+}
+
+#throwLabel {
+    font-size: 3rem;
+    position: absolute;
+    top: 20%;
+    left: 4.8%;
+}
+
+#strikeLabel {
+    font-size: 3rem;
+    position: absolute;
+    top: 20%;
+    right: 6.5%;
+}
